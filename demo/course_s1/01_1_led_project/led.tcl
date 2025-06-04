@@ -4,7 +4,8 @@ set proj_name "vivado_led"
 set work_dir [pwd]
 #创建工程
 #**********************************************************************************************************
-create_project -force $proj_name $work_dir/$proj_name -part xazu3eg-sfvc784-1-i
+#create_project -force $proj_name $work_dir/$proj_name -part xazu3eg-sfvc784-1-i
+create_project -force $proj_name $work_dir/$proj_name -part xczu2cg-sfvc784-1-e
 # Create 'sources_1' fileset (if not found)；file mkdir创建ip、new、bd三个子文件
 if {[string equal [get_filesets -quiet sources_1] ""]} {
   create_fileset -srcset sources_1

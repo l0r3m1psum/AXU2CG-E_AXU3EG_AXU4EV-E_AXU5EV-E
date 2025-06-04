@@ -66,7 +66,7 @@ create_bd_design $bdname
 
 open_bd_design $projpath/$projName.srcs/sources_1/bd/$bdname/$bdname.bd
 
-create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e:3.3 zynq_ultra_ps_e_0
+create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e:3.5 zynq_ultra_ps_e_0
 
 source $projpath/auto_create_project/ps_config.tcl
 set_ps_config zynq_ultra_ps_e_0

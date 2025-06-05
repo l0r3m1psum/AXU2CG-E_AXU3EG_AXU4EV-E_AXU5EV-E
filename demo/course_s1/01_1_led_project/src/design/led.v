@@ -1,34 +1,43 @@
 `timescale 1ns / 1ps
-
+/* (* MARK_DEBUG="true" *) allows to view the signal in the Integrated Logic
+ * Analyzer (ILA).
+ */
 module led(
 //Differential system clock
     input sys_clk_p,
     input sys_clk_n,
-    input rst_n,
-(* MARK_DEBUG="true" *)    output reg  led
+    input [3:0] key,
+// (* MARK_DEBUG="true" *)    output reg  led
+    output reg [3:0] led
 );
 
-(* MARK_DEBUG="true" *)reg[31:0] timer_cnt;
-    wire sys_clk ;
+// (* MARK_DEBUG="true" *)reg[31:0] timer_cnt;
+    reg[31:0] timer_cnt = 0;
+    wire sys_clk;
+    wire rst_n = key[0];
 
     IBUFDS IBUFDS_inst (
-          .O(sys_clk),   // 1-bit output: Buffer output
-          .I(sys_clk_p),   // 1-bit input: Diff_p buffer input (connect directly to top-level port)
-          .IB(sys_clk_n)  // 1-bit input: Diff_n buffer input (connect directly to top-level port)
-       );
+       .O(sys_clk),
+       .I(sys_clk_p),
+       .IB(sys_clk_n)
+    );
 
     always@(posedge sys_clk) begin
         if (!rst_n) begin
-          led <= 1'b0 ;
+          led[0] <= 1'b1 ;
           timer_cnt <= 32'd0 ;
-        end else if(timer_cnt >= 32'd199_999_999) begin //1 second counter, 200M-1=199999999
-            led <= ~led;
+        end else if (timer_cnt >= 32'd199_999_999) begin // 1 second counter
+            led[0] <= ~led[0];
             timer_cnt <= 32'd0;
         end else begin
-            led <= led;
+            led[0] <= led[0];
             timer_cnt <= timer_cnt + 32'd1;
         end
+        led[1] <= 1;
+        led[2] <= 1;
+        led[3] <= 1;
     end
+
     //Instantiate ila in source file
     //ila ila_inst(
     //  .clk(sys_clk),

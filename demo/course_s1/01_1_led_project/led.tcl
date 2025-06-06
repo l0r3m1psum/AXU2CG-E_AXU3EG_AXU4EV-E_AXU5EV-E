@@ -53,10 +53,10 @@ launch_runs synth_1 -jobs 5
 wait_on_run synth_1
 # set_property top_auto_detect true [current_project]
 set_property top_file "/$work_dir/$proj_name/$proj_name.srcs/sources_1/new/led.v" [current_fileset]
-synth_design -top led -quiet
-opt_design -quiet
-place_design -quiet
-route_design -quiet
+synth_design -top led
+opt_design
+place_design
+route_design
 write_bitstream -force $work_dir/$proj_name.bit
 write_debug_probes -force $work_dir/$proj_name.ltx
 

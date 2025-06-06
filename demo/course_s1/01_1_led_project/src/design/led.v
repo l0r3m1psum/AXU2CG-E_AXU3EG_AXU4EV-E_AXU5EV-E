@@ -22,7 +22,7 @@ module led(
        .IB(sys_clk_n)
     );
 
-    always@(posedge sys_clk) begin
+    always @(posedge sys_clk) begin
         if (!rst_n) begin
           led[0] <= 1'b1 ;
           timer_cnt <= 32'd0 ;
